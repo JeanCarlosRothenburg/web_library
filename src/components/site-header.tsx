@@ -1,3 +1,5 @@
+
+import logoPg from '../assets/logo-pg.png'
 import { NavLink } from 'react-router-dom'
 import { useSelection } from '../context/selection-context'
 import { useTheme } from '../context/theme-context'
@@ -37,15 +39,19 @@ export function SiteHeader() {
   return (
     <header className="app-header">
       <div className="page-shell flex min-h-[88px] items-center justify-between gap-4 py-4">
-        <NavLink to="/" className="flex items-center gap-3">
-          <span className="grid size-11 place-items-center rounded-2xl bg-[rgb(var(--primary))] text-sm font-bold text-[rgb(var(--text))] shadow-sm">
-            BGV
-          </span>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold tracking-[0.18em] text-[rgb(var(--accent))]">Biblioteca</p>
-            <p className="text-base font-semibold text-[rgb(var(--text))]">Getúlio Vargas</p>
-          </div>
-        </NavLink>
+       <NavLink to="/" className="flex items-center gap-3">
+  {/* Remova o <span> e adicione apenas a tag <img> com o import */}
+  <img 
+    src={logoPg} // Usando a variável importada aqui
+    alt="Logo da Biblioteca Getúlio Vargas" 
+    className="size-11 object-contain" // Mantém o tamanho original de 44px que estava no span
+  />
+
+  <div className="leading-tight">
+    <p className="text-sm font-semibold tracking-[0.18em] text-[rgb(var(--accent))]">Biblioteca</p>
+    <p className="text-base font-semibold text-[rgb(var(--text))]">Getúlio Vargas</p>
+  </div>
+</NavLink>
 
         <nav className="hidden items-center gap-1 rounded-full border border-[rgb(var(--border))] bg-[rgb(var(--surface))] p-1 shadow-sm md:flex">
           {navItems.map((item) => (
