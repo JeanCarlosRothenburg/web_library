@@ -269,7 +269,7 @@ export function AppointmentsPage() {
                     <div key={app.id} className="p-3 bg-[rgb(var(--surface-2))] opacity-80 flex flex-col gap-2">
                       <div className="flex justify-between items-center">
                         <span className="text-xs text-[rgb(var(--muted))]">{formatDateTime(app.scheduledFor)}</span>
-                        <Badge variant="secondary" className="text-[10px]">Concluído</Badge>
+                        <Badge variant="outline" className="text-[10px]">Concluído</Badge>
                       </div>
                       {app.items.map((item) => (
                         <p key={item.id} className="text-sm font-medium text-[rgb(var(--text))]">• {item.book.title}</p>

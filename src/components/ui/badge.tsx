@@ -6,7 +6,7 @@ type BadgeVariant = 'default' | 'muted' | 'outline'
 const variants: Record<BadgeVariant, string> = {
   default: 'bg-[rgb(var(--primary))] text-[rgb(var(--text))]',
   muted: 'bg-[rgb(var(--surface-2))] text-[rgb(var(--muted))]',
-  outline: 'border border-[rgb(var(--border))] bg-transparent text-[rgb(var(--text))]',
+  outline: 'border border-[rgb(var(--border))] bg-[rgb(var(--surface-2))] text-[rgb(var(--text))]',
 }
 
 export function Badge({
@@ -28,4 +28,3 @@ export function Badge({
     </span>
   )
 }
-

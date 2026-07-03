@@ -4,8 +4,8 @@ import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
 import { Card, CardContent } from '../components/ui/card'
 import { useSelection } from '../context/selection-context'
-import { createCoverDataUrl } from '../lib/covers'
 import { useBooks } from '../hooks/useBooks'
+import { BookCover } from '../components/book-cover'
 
 export function BookDetailPage() {
   const { codigoLivro } = useParams()
@@ -30,7 +30,6 @@ export function BookDetailPage() {
   }
 
   const selected = isSelected(book.id)
-  const coverUrl = book.coverUrl || createCoverDataUrl(book.title, book.featuredRank)
   const availabilityText = book.availableCopies > 0 ? 'Disponível para retirada presencial' : 'No momento sem exemplares livres'
 
   return (
@@ -44,7 +43,7 @@ export function BookDetailPage() {
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <Card className="overflow-hidden">
           <div className="aspect-[3/4] bg-[rgb(var(--surface-2))]">
-            <img src={coverUrl} alt={`Capa de ${book.title}`} className="h-full w-full object-cover" />
+            <BookCover title={book.title} coverUrl={book.coverUrl} seed={book.featuredRank} className="h-full w-full" />
           </div>
         </Card>
 
@@ -102,4 +101,3 @@ export function BookDetailPage() {
     </div>
   )
 }
-

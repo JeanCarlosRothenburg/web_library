@@ -224,7 +224,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
       return updatedUser
     }
 
-    const result = await supabase
+    const db = supabase as any
+    const result = await db
       .from('profiles')
       .update({
         full_name: nextProfile.fullName ?? user.fullName,
@@ -275,4 +276,3 @@ export function useAuth() {
 
   return context
 }
-

@@ -11,6 +11,26 @@ type AppointmentInput = {
   books: Book[]
 }
 
+type AppointmentRow = {
+  id: string
+  scheduled_for: string
+  status: AppointmentStatus
+  contact_name: string
+  contact_phone: string | null
+  notes: string | null
+  created_at: string
+}
+
+type AppointmentItemRow = {
+  id: string
+  appointment_id: string
+  book_id: string
+  book_code: string
+  title_snapshot: string
+  author_snapshot: string
+  position: number
+}
+
 const storageKey = 'bgv-appointments'
 
 function readLocalAppointments(): Appointment[] {
@@ -69,16 +89,10 @@ export function useAppointments(userId?: string) {
     setLoading(true)
     setError(null)
 
+    const db = supabase as any
     const [appointmentsResult, itemsResult] = await Promise.all([
-      supabase
-        .from('appointments')
-        .select('*')
-        .eq('user_id', userId)
-        .order('scheduled_for', { ascending: true }),
-      supabase
-        .from('appointment_items')
-        .select('*')
-        .order('position', { ascending: true }),
+      db.from('appointments').select('*').eq('user_id', userId).order('scheduled_for', { ascending: true }),
+      db.from('appointment_items').select('*').order('position', { ascending: true }),
     ])
 
     if (appointmentsResult.error) {
@@ -95,7 +109,10 @@ export function useAppointments(userId?: string) {
       return
     }
 
-    const mappedAppointments = (appointmentsResult.data ?? []).map((appointment) => ({
+    const appointmentsData = (appointmentsResult.data ?? []) as AppointmentRow[]
+    const itemsData = (itemsResult.data ?? []) as AppointmentItemRow[]
+
+    const mappedAppointments = appointmentsData.map((appointment) => ({
       id: appointment.id,
       scheduledFor: appointment.scheduled_for,
       status: appointment.status,
@@ -103,7 +120,7 @@ export function useAppointments(userId?: string) {
       contactPhone: appointment.contact_phone ?? '',
       notes: appointment.notes ?? '',
       createdAt: appointment.created_at,
-      items: (itemsResult.data ?? [])
+      items: itemsData
         .filter((item) => item.appointment_id === appointment.id)
         .map((item) => ({
           id: item.id,
@@ -183,11 +200,8 @@ export function useAppointments(userId?: string) {
       status: 'pending' as const,
     }
 
-    const appointmentResult = await supabase
-      .from('appointments')
-      .insert(appointmentPayload)
-      .select('*')
-      .single()
+    const db = supabase as any
+    const appointmentResult = await db.from('appointments').insert(appointmentPayload).select('*').single()
 
     if (appointmentResult.error) {
       throw new Error(appointmentResult.error.message)
@@ -202,7 +216,7 @@ export function useAppointments(userId?: string) {
       position: index + 1,
     }))
 
-    const itemsResult = await supabase.from('appointment_items').insert(itemsPayload)
+    const itemsResult = await db.from('appointment_items').insert(itemsPayload)
 
     if (itemsResult.error) {
       throw new Error(itemsResult.error.message)
@@ -221,4 +235,3 @@ export function useAppointments(userId?: string) {
     statusLabel,
   }
 }
-

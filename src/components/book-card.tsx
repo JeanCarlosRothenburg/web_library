@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import { createCoverDataUrl } from '../lib/covers'
 import { cn } from '../lib/utils'
 import type { Book } from '../types/app'
+import { BookCover } from './book-cover'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
@@ -13,17 +13,18 @@ type BookCardProps = {
 }
 
 export function BookCard({ book, selected = false, onToggleSelection }: BookCardProps) {
-  const coverUrl = book.coverUrl || createCoverDataUrl(book.title, book.featuredRank)
   const available = book.availableCopies > 0
 
   return (
-    
     <Card className="group overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)]">
       <div className="relative aspect-[3/4] overflow-hidden bg-[rgb(var(--surface-2))]">
-        
-        
-        <img src={coverUrl} alt={`Capa de ${book.title}`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        
+        <BookCover
+          title={book.title}
+          coverUrl={book.coverUrl}
+          seed={book.featuredRank}
+          className="h-full w-full"
+          imgClassName="transition-transform duration-500 group-hover:scale-105"
+        />
         <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-2">
           <Badge variant="default">{available ? 'Disponível' : 'Indisponível'}</Badge>
           <Badge variant="outline">{book.genre}</Badge>
