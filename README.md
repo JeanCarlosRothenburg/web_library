@@ -1,75 +1,29 @@
-# React + TypeScript + Vite
+# 📚 Biblioteca Getúlio Vargas (BGV)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **BGV** é um sistema moderno de gerenciamento e agendamento presencial de retirada de livros. Desenvolvido para otimizar o fluxo de empréstimos físicos de uma biblioteca, o software permite que os usuários explorem o acervo completo, gerenciem suas seleções de leitura e agendem um horário para a retirada física dos exemplares diretamente na instituição.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tecnologias Utilizadas
 
-## React Compiler
+Este projeto foi construído utilizando o estado da arte do ecossistema Frontend moderno:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Core:** [React 19](https://react.dev/) & [TypeScript](https://www.typescriptlang.org/) (~6.0)
+- **Build Tool:** [Vite](https://vite.dev/) (v8)
+- **Estilização:** [Tailwind CSS v4](https://tailwindcss.com/) (utilizando a nova engine `@tailwindcss/vite`)
+- **Roteamento:** [React Router Dom v7](https://reactrouter.com/home)
+- **Backend as a Service (BaaS):** [Supabase](https://supabase.com/) (`@supabase/supabase-js` para autenticação e persistência)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Como Executar o Projeto Localmente
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Siga os passos abaixo para clonar, configurar e rodar a aplicação em sua máquina:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Pré-requisitos
+Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em seu computador.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+### 2. Instalar as Dependências
+No terminal, acesse a pasta raiz do projeto e execute o comando abaixo para baixar os pacotes necessários:
+```bash
+npm install
