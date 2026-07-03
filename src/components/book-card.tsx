@@ -1,0 +1,61 @@
+import { NavLink } from 'react-router-dom'
+import { createCoverDataUrl } from '../lib/covers'
+import { cn } from '../lib/utils'
+import type { Book } from '../types/app'
+import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import { Card, CardContent } from './ui/card'
+
+type BookCardProps = {
+  book: Book
+  selected?: boolean
+  onToggleSelection?: (book: Book) => void
+}
+
+export function BookCard({ book, selected = false, onToggleSelection }: BookCardProps) {
+  const coverUrl = book.coverUrl || createCoverDataUrl(book.title, book.featuredRank)
+  const available = book.availableCopies > 0
+
+  return (
+    <Card className="overflow-hidden transition hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)]">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[rgb(var(--surface-2))]">
+        <img src={coverUrl} alt={`Capa de ${book.title}`} className="h-full w-full object-cover" />
+        <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-2">
+          <Badge variant="default">{available ? 'Disponível' : 'Indisponível'}</Badge>
+          <Badge variant="outline">{book.genre}</Badge>
+        </div>
+      </div>
+      <CardContent className="space-y-4 pt-5">
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[rgb(var(--accent))]">{book.codigoLivro}</p>
+          <h3 className="line-clamp-2 text-lg font-semibold leading-tight text-[rgb(var(--text))]">{book.title}</h3>
+          <p className="text-sm text-[rgb(var(--muted))]">{book.author}</p>
+          <p className="line-clamp-3 text-sm leading-6 text-[rgb(var(--muted))]">{book.synopsis}</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 text-xs text-[rgb(var(--muted))]">
+          <span className="rounded-full bg-[rgb(var(--surface-2))] px-3 py-1">{book.publishedYear}</span>
+          <span className="rounded-full bg-[rgb(var(--surface-2))] px-3 py-1">{book.pages} páginas</span>
+          <span className="rounded-full bg-[rgb(var(--surface-2))] px-3 py-1">
+            {book.availableCopies}/{book.totalCopies} exemplares
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <NavLink to={`/books/${book.codigoLivro}`} className="flex-1">
+            <Button variant="outline" className="w-full">
+              Ver detalhes
+            </Button>
+          </NavLink>
+          <Button
+            variant={selected ? 'secondary' : 'default'}
+            className={cn('flex-1', !available && 'opacity-70')}
+            onClick={() => onToggleSelection?.(book)}
+          >
+            {selected ? 'Remover' : 'Selecionar'}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
