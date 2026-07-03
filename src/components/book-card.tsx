@@ -17,9 +17,13 @@ export function BookCard({ book, selected = false, onToggleSelection }: BookCard
   const available = book.availableCopies > 0
 
   return (
-    <Card className="overflow-hidden transition hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)]">
+    
+    <Card className="group overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)]">
       <div className="relative aspect-[3/4] overflow-hidden bg-[rgb(var(--surface-2))]">
-        <img src={coverUrl} alt={`Capa de ${book.title}`} className="h-full w-full object-cover" />
+        
+        
+        <img src={coverUrl} alt={`Capa de ${book.title}`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        
         <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-2">
           <Badge variant="default">{available ? 'Disponível' : 'Indisponível'}</Badge>
           <Badge variant="outline">{book.genre}</Badge>

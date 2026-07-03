@@ -16,11 +16,11 @@ export function HomePage() {
       <section className="hero-surface overflow-hidden">
         <div className="grid gap-10 p-8 md:grid-cols-[1.15fr_0.85fr] md:p-12">
           <div className="space-y-6">
-            <span className="inline-flex rounded-full border border-[rgb(var(--border))] bg-[rgb(var(--surface-2))] px-4 py-2 text-sm font-medium text-[rgb(var(--accent))]">
+            <span className="inline-flex rounded-full border border-[rgb(var(--border))] bg-[rgb(var(--surface-2))] px-4 py-2 text-sm font-medium text-[rgb(var(--accent))] shadow-sm">
               Biblioteca Municipal Getúlio Vargas
             </span>
             <div className="space-y-4">
-              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-[rgb(var(--text))] md:text-6xl">
+              <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent md:text-6xl">
                 Consulta de acervo e agendamento presencial em um único fluxo.
               </h1>
               <p className="max-w-2xl text-base leading-7 text-[rgb(var(--muted))] md:text-lg">
@@ -30,10 +30,12 @@ export function HomePage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Link to="/books">
-                <Button size="lg">Explorar acervo</Button>
+                <Button size="lg" className="transition-transform hover:scale-105 active:scale-95">
+                  Explorar acervo
+                </Button>
               </Link>
               <Link to="/appointments">
-                <Button size="lg" variant="secondary">
+                <Button size="lg" variant="secondary" className="transition-transform hover:scale-105 active:scale-95">
                   Ver agendamentos
                 </Button>
               </Link>
@@ -44,7 +46,7 @@ export function HomePage() {
                 ['Agendamento', 'Selecione livros e horário.'],
                 ['Atendimento', 'Retirada sempre presencial.'],
               ].map(([title, description]) => (
-                <Card key={title}>
+                <Card key={title} className="transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-default">
                   <CardContent className="p-4">
                     <p className="text-sm font-semibold text-[rgb(var(--text))]">{title}</p>
                     <p className="mt-1 text-sm leading-6 text-[rgb(var(--muted))]">{description}</p>
@@ -55,7 +57,7 @@ export function HomePage() {
           </div>
 
           <div className="space-y-4">
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
               <CardContent className="space-y-5 p-6">
                 <SectionHeading
                   eyebrow="Anúncio"
@@ -69,7 +71,7 @@ export function HomePage() {
                     ['Local', 'Sala principal da biblioteca'],
                     ['Entrada', 'Gratuita mediante inscrição'],
                   ].map(([label, value]) => (
-                    <div key={label} className="rounded-2xl border border-[rgb(var(--border))] bg-[rgb(var(--surface-2))] p-4">
+                    <div key={label} className="rounded-2xl border border-[rgb(var(--border))] bg-[rgb(var(--surface-2))] p-4 transition-colors hover:bg-[rgb(var(--surface-3))]">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[rgb(var(--muted))]">{label}</p>
                       <p className="mt-2 text-sm font-medium text-[rgb(var(--text))]">{value}</p>
                     </div>
@@ -137,4 +139,3 @@ export function HomePage() {
     </div>
   )
 }
-
